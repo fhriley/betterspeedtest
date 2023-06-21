@@ -29,16 +29,15 @@ def print_result(args: argparse.Namespace, result, speed: Optional[float] = None
     sorted_rtts = list(sorted(result.rtts))
 
     if speed:
-        dir_msg = 'Upload' if args.direction == 'up' else 'Download'
-        print(f'{dir_msg:>9} {speed:.2f} Mbps')
-    print(f'{"Latency:":>9} (in msec, {result.packets_sent} pings, {result.packet_loss * 100:.2f}% packet loss)')
-    print(f'{"Min:":>9} {result.min_rtt:.3f}')
-    print(f'{"10pct:":>9} {numpy.percentile(sorted_rtts, 10):.3f}')
-    print(f'{"Median:":>9} {numpy.percentile(sorted_rtts, 50):.3f}')
-    print(f'{"Avg:":>9} {result.avg_rtt:.3f}')
-    print(f'{"90pct:":>9} {numpy.percentile(sorted_rtts, 90):.3f}')
-    print(f'{"Max:":>9} {result.max_rtt:.3f}')
-    print(f'{"Jitter:":>9} {result.jitter:.3f}')
+        dir_msg = 'Up:' if args.direction == 'up' else 'Down:'
+        print(f'{dir_msg:>8} {speed:.2f} Mbps')
+    print(f'{"Latency:":>8} (in msec, {result.packets_sent} pings, {result.packet_loss * 100:.2f}% packet loss)')
+    print(f'{"Min:":>8} {result.min_rtt:.3f}')
+    print(f'{"Median:":>8} {numpy.percentile(sorted_rtts, 50):.3f}')
+    print(f'{"Avg:":>8} {result.avg_rtt:.3f}')
+    print(f'{"95pct:":>8} {numpy.percentile(sorted_rtts, 95):.3f}')
+    print(f'{"Max:":>8} {result.max_rtt:.3f}')
+    print(f'{"Jitter:":>8} {result.jitter:.3f}')
 
 
 async def main(log: logging.Logger, args: argparse.Namespace):
